@@ -2,15 +2,17 @@ require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
-const PORT = process.env.PORT;
+const SERVER_PORT = process.env.BACKEND_PORT;
 
 const app = express();
 
-app.listen(PORT, () => {
-	console.log(`Server running on http://localhost:${PORT}`);
+app.listen(SERVER_PORT, () => {
+	console.log(`Server running on http://localhost:${SERVER_PORT}`);
 });
 
-app.use(cors());
+app.use(cors({
+	origin: `http://localhost:${process.env.UI_PORT}`
+}));
 
 app.get('/api/initial-value', (req, res) => {
 	res.json({ initialValue: 10 });
