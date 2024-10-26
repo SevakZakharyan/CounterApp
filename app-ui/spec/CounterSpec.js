@@ -14,6 +14,10 @@ const createTestStore = (preloadedState) => configureStore({
 	preloadedState,
 });
 
+const renderWithProvider = (ui, store) => {
+	return render(<Provider store={store}>{ui}</Provider>);
+};
+
 describe("CounterList Component", () => {
 	let store;
 	const initialValue = 10;
@@ -25,10 +29,6 @@ describe("CounterList Component", () => {
 
 		spyOn(axios, 'get').and.returnValue(Promise.resolve({ data: { initialValue } }));
 	});
-	
-	const renderWithProvider = (ui, store) => {
-		return render(<Provider store={store}>{ui}</Provider>);
-	};
 	
 	it("renders and adds a new counter with the initial value from the API", async () => {
 		renderWithProvider(<CounterList />, store);
@@ -52,10 +52,6 @@ describe("Counter Component", () => {
 			counters: [{ id: 1, value: initialValue }],
 		});
 	});
-	
-	const renderWithProvider = (ui, store) => {
-		return render(<Provider store={store}>{ui}</Provider>);
-	};
 	
 	it("renders initial counter value", () => {
 		renderWithProvider(<Counter id={1} />, store);
